@@ -7,12 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $guarded = array('id');
-    public static $rules = array(
-        'author_id' => 'required',
-        'titke' => 'required',
-    );
-    public function getTitle(){
-        return 'ID'.$this->id . ';' . $this->title;
+    use HasFactory;
+
+    protected $guarded = [
+        'id'
+    ];
+
+    protected $fillable = [
+    'uuid', 'name', 'price'
+    ];
+    public function fillBook() {
+        $book = new Book();
+        $uuid = (string)Str::uuid();
+        $book->fill([
+            'id' => 20,
+            'uuid' =>  $uuid,
+            'name' => 'FillBook',
+            'price' => 1500,
+        ]) ;
+        $book->save();
     }
 }

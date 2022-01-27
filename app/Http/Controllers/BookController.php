@@ -4,20 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Str;
+
 
 class BookController extends Controller
 {
-    public function index(Request $request){
-        $items = Book::all();
-        return view('book.index', ['item'=>$items]);
+
+    public function fillBook() {
+        $book = new Book();
+        $uuid = (string)Str::uuid();
+        $book->fill([
+            'uuid' =>  $uuid,
+            'name' => 'FillBook',
+            'price' => 1500,
+        ]) ;
+        $book->save();
     }
-    public function add(Request $request){
-        return view('book.add');
-    }
-    public function create(Request $request){
-        $this->validate($request, Book::$rules);
-        $form = $request->all();
-        Book::create($form);
-        return redirect('/book');
+    public function createBook() {
+        $uuid = (string)Str::uuid();
+        Book::create([
+            'uuid' =>  $uuid,
+            'name' => 'CreateBook',
+            'price' => 1200,
+        ]);
+    } 
+    public function insertBook() {
+        $book = new Book();
+        $uuid = (string)Str::uuid();
+        $book::insert([
+            'uuid' =>  $uuid,
+            'name' => 'InsertBook',
+            'price' => 1800,
+        ]);
     }
 }

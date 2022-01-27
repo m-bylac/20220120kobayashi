@@ -14,7 +14,9 @@ use App\Http\Controllers\AuthorController;
 |
 */
 
-Route::get('/building/{room}', function ($room = '建物です') {
-    return '部屋番号は' . $room .  'です';
-});
+Route::get('fill', [BookController::class,'fillBook']);
+Route::get('create', [BookController::class,'createBook']);
+Route::get('insert', [BookController::class,'insertBook']);
 
+Route::get('/auth', [AuthorController::class,'check']);
+Route::post('/auth', [AuthorController::class,'checkUser']);

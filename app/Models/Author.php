@@ -10,10 +10,9 @@ class Author extends Model
     public function book(){
         return $this->hasOne('App\Models\Book');
     }
-    public function relate(Request $request) //追記
+    public function relate(Request $request)
     {
         $items = Author::all();
         return view('author.index', ['items' => $items]);
     }
 }
-Route::get('/relation', [AuthorController::class, 'relate']);
